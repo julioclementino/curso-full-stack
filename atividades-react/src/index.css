@@ -1,7 +1,7 @@
-﻿:root {
+:root {
     font-family: 'Segoe UI', Arial, sans-serif;
-    color: #20271f;
-    background: #f5f6f0;
+    color: #390808;
+    background: #fff1e8;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -44,7 +44,7 @@ button:disabled {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-    outline: 3px solid #638c2b;
+    outline: 3px solid #dc101b;
     outline-offset: 5px;
 }
 
@@ -59,8 +59,8 @@ p {
 }
 
 ::selection {
-    background: #d5f783;
-    color: #20271f;
+    background: #ffd447;
+    color: #390808;
 }
 
 @media (prefers-reduced-motion: reduce) {

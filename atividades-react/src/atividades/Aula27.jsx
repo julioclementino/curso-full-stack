@@ -86,7 +86,7 @@ export default function Aula27() {
         </a>
         <span className="header-tag">PEQUENAS AÇÕES. GRANDES NÚMEROS.</span>
         <span className="project-badge">
-          <i /> laboratório React
+          <i /> Laboratório React
         </span>
       </header>
       <main id="inicio">
