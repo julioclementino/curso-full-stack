@@ -1,73 +1,714 @@
-.product-card {
-  width: min(100% - 32px, 520px);
-  margin: auto;
-  padding: 32px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--bg);
-  box-shadow: var(--shadow);
-  text-align: left;
+﻿.app-shell {
+    max-width: 1120px;
+    padding: 0 40px;
+    margin: auto;
 }
 
-.product-card h1 {
-  margin: 0 0 28px;
-  font-size: 32px;
-  line-height: 1.2;
-  letter-spacing: -0.8px;
+.site-header {
+    height: 102px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #dce0d5;
 }
 
-.product-card h2 {
-  margin-bottom: 8px;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #20271f;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -1.8px;
+}
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: #263427;
+    color: #d5f783;
+    font-size: 29px;
+}
+
+.brand sup {
+    font-size: 11px;
+    align-self: flex-start;
+    margin: 5px 0 0 -5px;
+}
+
+.header-tag {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.7px;
+    color: #72796c;
+}
+
+.project-badge {
+    border: 1px solid #dce0d5;
+    border-radius: 30px;
+    padding: 9px 13px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.project-badge i,
+.live-badge i,
+.save-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #719045;
+    border-radius: 50%;
+    margin-right: 7px;
+    vertical-align: middle;
+}
+
+.intro {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 49px 0 35px;
+}
+
+.eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+}
+
+.intro .eyebrow {
+    color: #6d775e;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: clamp(44px, 5vw, 62px);
+    font-weight: 650;
+    line-height: 1.04;
+    letter-spacing: -3px;
+}
+
+h1>span {
+    color: #7c9b3c;
+}
+
+.intro>p {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #73796e;
+    margin-bottom: 4px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 20px;
+}
+
+.counter-card {
+    background: #202d26;
+    color: #f7f9f2;
+    border-radius: 22px;
+    padding: 27px 30px 0;
+    overflow: hidden;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.counter-card .eyebrow {
+    color: #a6b3a7;
+}
+
+.live-badge {
+    font-size: 8px;
+    letter-spacing: 1px;
+    background: #344136;
+    padding: 6px 9px;
+    border-radius: 6px;
+}
+
+.live-badge i {
+    background: #d5f783;
+    width: 4px;
+    height: 4px;
+}
+
+.product-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 27px;
+}
+
+.small-label {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+    color: #a7b5a9;
+}
+
+.product-row h2 {
+    margin: 5px 0;
+    font-size: 24px;
+    font-weight: 550;
+    letter-spacing: -.6px;
+}
+
+.product-row p {
+    color: #d8f395;
+    font-size: 12px;
+}
+
+.product-row p>span {
+    color: #a7b5a9;
+}
+
+.product-art {
+    width: 65px;
+    height: 67px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #d8e4b4;
+    position: relative;
+    transform: rotate(-7deg);
+    box-shadow: inset -12px -7px 0 #bacb95, 4px 5px 0 #17231d;
+    color: #263427;
+}
+
+.box-tape {
+    position: absolute;
+    left: 26px;
+    top: 0;
+    width: 12px;
+    height: 22px;
+    background: #eff2cf;
+}
+
+.box-face {
+    position: absolute;
+    font-size: 38px;
+    top: 4px;
+    left: 15px;
+}
+
+.product-art b {
+    position: absolute;
+    font-size: 10px;
+    bottom: 9px;
+    left: 10px;
+}
+
+.counter-display {
+    text-align: center;
+    padding: 29px 0 25px;
+}
+
+.big-number {
+    display: block;
+    font-size: clamp(80px, 9vw, 112px);
+    font-weight: 550;
+    letter-spacing: -6px;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+.unit-label {
+    color: #a7b5a9;
+    font-size: 12px;
 }
 
 .quantity-controls {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin: 20px 0;
+    display: flex;
+    gap: 12px;
 }
 
 .quantity-controls button {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--accent-border);
-  border-radius: 8px;
-  background: var(--accent-bg);
-  color: var(--text-h);
-  font: inherit;
-  cursor: pointer;
+    border: 0;
+    height: 55px;
+    border-radius: 12px;
+    font-weight: 600;
 }
 
-.quantity-controls button:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
+.minus-button {
+    width: 65px;
+    flex-shrink: 0;
+    background: #39473c;
+    color: #fff;
+    font-size: 27px;
 }
 
-.quantity-controls button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+.minus-button:hover:not(:disabled) {
+    background: #4c5d4f;
 }
 
-.quantity-controls output {
-  min-width: 24px;
-  color: var(--text-h);
-  font-weight: 600;
-  text-align: center;
+.add-button {
+    flex: 1;
+    background: #d5f783;
+    color: #263427;
+    font-size: 13px;
 }
 
-.subtotal {
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-  color: var(--text-h);
-  font-weight: 600;
+.add-button>span {
+    font-size: 23px;
+    vertical-align: -2px;
+    margin-right: 8px;
+    font-weight: 400;
+}
+
+.add-button:hover:not(:disabled) {
+    background: #e2ffa4;
+}
+
+.counter-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0 25px;
+}
+
+.step-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    color: #bac4bb;
+}
+
+.step-control>div {
+    display: flex;
+    padding: 3px;
+    background: #17231d;
+    border-radius: 7px;
+}
+
+.step-control button {
+    border: 0;
+    color: #a7b5a9;
+    background: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+.step-control button[aria-pressed='true'] {
+    background: #4a594a;
+    color: #fff;
+}
+
+.text-button {
+    background: none;
+    border: 0;
+    padding: 8px 0;
+    color: inherit;
+    font-size: 11px;
+}
+
+.text-button:hover:not(:disabled) {
+    text-decoration: underline;
+}
+
+.counter-options .text-button {
+    color: #c2cbbf;
+}
+
+.counter-note {
+    border-top: 1px solid #415044;
+    color: #a7b5a9;
+    text-align: center;
+    font-size: 10px;
+    padding: 17px 0;
+}
+
+.counter-note>span {
+    margin-right: 6px;
+    color: #d5f783;
+}
+
+.side-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.total-card {
+    background: #d5f783;
+    border-radius: 22px;
+    padding: 27px 27px 24px;
+}
+
+.total-card .card-top>span:last-child {
+    font-size: 25px;
+    line-height: 1;
+}
+
+.total-label {
+    font-size: 13px;
+    margin-top: 32px;
+}
+
+.total-value {
+    font-size: clamp(29px, 3.5vw, 43px);
+    font-weight: 600;
+    letter-spacing: -1.8px;
+    margin: 6px 0 25px;
+    overflow-wrap: anywhere;
+}
+
+.total-details {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid #b5d568;
+    padding-top: 17px;
+    font-size: 10px;
+}
+
+.goal-card {
+    flex: 1;
+    padding: 24px 27px;
+    background: #fff;
+    border: 1px solid #e0e4d9;
+    border-radius: 22px;
+}
+
+.goal-card h2 {
+    font-size: 17px;
+    letter-spacing: -.4px;
+    font-weight: 600;
+}
+
+.goal-icon {
+    font-size: 27px;
+    color: #71864f;
+}
+
+.goal-card>p {
+    font-size: 11px;
+    line-height: 1.6;
+    color: #747c6e;
+    margin-top: 9px;
+}
+
+.progress-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    margin: 28px 0 10px;
+}
+
+.progress-heading strong {
+    font-size: 13px;
+}
+
+.progress-track {
+    height: 8px;
+    background: #edf0e7;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-track>span {
+    display: block;
+    height: 100%;
+    background: #86a74d;
+    border-radius: inherit;
+    transition: width .35s ease;
+}
+
+.goal-input {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 11px;
+    margin-top: 23px;
+}
+
+.goal-input input {
+    width: 75px;
+    min-width: 0;
+    border: 1px solid #dce0d5;
+    border-radius: 6px;
+    padding: 7px;
+    font-size: 12px;
+    color: #263427;
+    background: #fafbf7;
+}
+
+.goal-input>span {
+    color: #747c6e;
+}
+
+.history-card {
+    margin-top: 22px;
+    border: 1px solid #dce0d5;
+    border-radius: 18px;
+    padding: 24px 28px;
+}
+
+.history-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.history-heading .eyebrow {
+    color: #7b846f;
+    font-size: 9px;
+}
+
+.history-heading h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 7px;
+}
+
+.history-heading h2>span {
+    color: #7b846f;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.empty-history {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 24px;
+    padding: 17px 20px;
+    border-radius: 10px;
+    background: #ecefe5;
+}
+
+.empty-history>span:first-child {
+    font-size: 25px;
+    color: #829268;
+}
+
+.empty-history p {
+    font-size: 12px;
+}
+
+.empty-history small {
+    display: block;
+    font-size: 10px;
+    color: #737c69;
+    margin-top: 5px;
+}
+
+.empty-dots {
+    margin-left: auto;
+    font-size: 25px;
+    color: #829268;
+    white-space: nowrap;
+}
+
+.history-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0;
+}
+
+.history-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid #e0e4d9;
+}
+
+.movement-icon {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    background: #e6e8df;
+    border-radius: 9px;
+}
+
+.movement-icon.positive {
+    background: #e0efc5;
+}
+
+.history-list strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.history-list div>span {
+    font-size: 10px;
+    color: #747c6e;
+}
+
+.history-list b {
+    margin-left: auto;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 27px 0;
+    font-size: 10px;
+    color: #737c69;
+}
+
+.save-dot {
+    width: 5px;
+    height: 5px;
+}
+
+.save-dot.unsaved {
+    background: #b57b2d;
+}
+
+@media (min-width: 1400px) {
+    .intro {
+        padding-top: 62px;
+        padding-bottom: 40px;
+    }
+}
+
+@media (max-width: 760px) {
+    .app-shell {
+        padding: 0 22px;
+    }
+
+    .site-header {
+        height: 80px;
+    }
+
+    .header-tag {
+        display: none;
+    }
+
+    .intro {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+        padding-top: 35px;
+    }
+
+    .intro>p {
+        font-size: 12px;
+    }
+
+    .desktop-break {
+        display: none;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .side-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .total-card,
+    .goal-card {
+        padding: 22px;
+    }
+
+    .total-value {
+        font-size: 30px;
+    }
+
+    .total-details {
+        flex-direction: column;
+    }
+
+    .goal-input {
+        flex-wrap: wrap;
+    }
+
+    .big-number {
+        font-size: 100px;
+    }
+
+    footer {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 }
 
 @media (max-width: 480px) {
-  .product-card {
-    padding: 24px;
-  }
+    .app-shell {
+        padding: 0 16px;
+    }
 
-  .product-card h1 {
-    font-size: 28px;
-  }
+    .brand {
+        font-size: 26px;
+    }
+
+    .project-badge {
+        font-size: 9px;
+        padding: 8px;
+    }
+
+    .intro .eyebrow {
+        font-size: 8px;
+    }
+
+    .counter-card {
+        padding: 22px 22px 0;
+    }
+
+    .side-column {
+        grid-template-columns: 1fr;
+    }
+
+    .total-value {
+        font-size: 42px;
+    }
+
+    .total-details {
+        flex-direction: row;
+    }
+
+    .total-label {
+        margin-top: 24px;
+    }
+
+    .history-card {
+        padding: 21px;
+    }
+
+    .history-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .history-heading h2>span {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .empty-history {
+        margin-top: 14px;
+        padding: 14px;
+    }
+
+    .empty-dots {
+        display: none;
+    }
 }
