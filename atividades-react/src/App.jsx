@@ -1,3 +1,4 @@
+import "./App.css";
 import Aula27 from "./atividades/Aula27";
 
 function App() {
