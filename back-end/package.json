@@ -1,0 +1,17 @@
+{
+  "name": "api-cardapio",
+  "version": "1.0.0",
+  "description": "Api do projeto de cardápio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [],
+  "author": "Júlio Clementino",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
