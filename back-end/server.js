@@ -13,23 +13,40 @@ const produtos = [
   {
     id: 1, 
     nome: "Monitor",
-    preco: 1500.00
+    preco: 1500.00,
+    categoria: "Monitores"
   },
   {
     id: 2,
     nome: "Mouse",
-    preco: 189.90
+    preco: 189.90,
+    categoria: "Periféricos"
   },
   {
     id: 3,
     nome: "Teclado",
-    preco: 259.90
-  }
+    preco: 259.90,
+    categoria: "Periféricos"
+  },
 ];
 
 // lista produtos
 app.get("/produtos", (req, res) => {
-  res.json(produtos);
+  const categoria = req.query.categoria;
+  
+  if (categoria.toLowerCase() === "todos") {
+    return res.json(produtos);
+  }
+  
+  const novaLista = produtos.filter(p => p.categoria.toLowerCase() === categoria.toLowerCase());
+
+  if (novaLista.length === 0) {
+    return res
+    .status(404)
+    .json({ erro: "Nenhum produto encontrado para a categoria informada" });
+  } 
+
+  res.json(categoria.toLowerCase() === "todos" ? produtos : novaLista); 
 });
 
 // informações de um produto específico
