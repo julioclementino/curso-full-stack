@@ -9,5 +9,11 @@ console.log(julio.cidade);
 console.log(julio.apresentar());
 
 console.log(`Quantidade de pontos atuais de ${julio.nome}: ${julio.pontos}`);
-julio.ganharPontos(10);
+
+try {
+  julio.ganharPontos(200);
+} catch (error) {
+  console.log(error.message);
+}
+
 console.log(`Quantidade de pontos após a atualização: ${julio.pontos}`);

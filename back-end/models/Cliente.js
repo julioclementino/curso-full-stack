@@ -11,6 +11,11 @@ export class Cliente {
   }
 
   ganharPontos(valor) {
+    if (valor <= 0 || valor > 100) {
+      throw new Error(
+        "O valor de pontos deve ser maior que 0 e menor ou igual a 100.",
+      );
+    }
     this.pontos = this.pontos + valor;
   }
 }
