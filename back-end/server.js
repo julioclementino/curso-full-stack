@@ -1,19 +1,41 @@
-import { Cliente } from "./models/Cliente.js";
+import express from "express";
+import { Catalogo } from "./models/Catalogo.js";
 
-const julio = new Cliente("Julio", "juliodev7@gmail.com", "Caruaru");
+const app = express();
+const PORTA = 3000;
 
-console.log(julio.nome);
-console.log(julio.email);
-console.log(julio.cidade);
+app.use(express.json()); // permite que o express entenda requisições com body em JSON
 
-console.log(julio.apresentar());
+const catalogo = new Catalogo();
+catalogo.adicionar("X-tudo", 39.9, "Hamburguer", 10);
+catalogo.adicionar("Coxinha", 19.9, "Salgados", 0);
 
-console.log(`Quantidade de pontos atuais de ${julio.nome}: ${julio.pontos}`);
+// métodos get
+app.get("/", (req, res) => {
+  res.send("Api cardápio funcionando!");
+});
 
-try {
-  julio.ganharPontos(200);
-} catch (error) {
-  console.log(error.message);
-}
+// listar os produtos do catálogo
+app.get("/produtos", (req, res) => {
+  res.json(catalogo.listar());
+});
 
-console.log(`Quantidade de pontos após a atualização: ${julio.pontos}`);
+// listar os produtos disponíveis do catálogo
+app.get("/produtos/disponiveis", (req, res) => {
+  res.json(catalogo.disponiveis());
+});
+
+// buscar produto por id
+app.get("/produtos/:id", (req, res) => {
+  const produto = catalogo.buscarPorId(Number(req.params.id));
+
+  if (produto) {
+    res.json(produto);
+  } else {
+    res.status(404).json({ error: "Produto não encontrado" });
+  }
+});
+
+app.listen(PORTA, () => {
+  console.log(`Servidor está rodando em http://localhost:${PORTA}`);
+});
