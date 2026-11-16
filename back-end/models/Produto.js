@@ -26,3 +26,4 @@ export class Produto {
     this.preco = Number((this.preco * (1 - percentual / 100)).toFixed(2));
   }
 }
+    
