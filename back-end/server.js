@@ -36,6 +36,38 @@ app.get("/produtos/:id", (req, res) => {
   }
 });
 
+// Método POST para produtos com desconto
+app.post("/produtos/:id/desconto", (req, res) => {
+  const produto = catalogo.buscarPorId(Number(req.params.id));
+
+  if (!produto) {
+    return res.status(404).json({ error: "Produto não encontrado" });
+  }
+
+  try {
+    produto.aplicarDesconto(req.body.percentual);
+    res.json(produto);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Método POST para vender produtos
+app.post("/produtos/:id/vender", (req, res) => {
+  const produto = catalogo.buscarPorId(Number(req.params.id));
+
+  if (!produto) {
+    return res.status(404).json({ error: "Produto não encontrado" });
+  }
+
+  try {
+    produto.vender(req.body.quantidade);
+    res.json(produto);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 app.listen(PORTA, () => {
   console.log(`Servidor está rodando em http://localhost:${PORTA}`);
 });
