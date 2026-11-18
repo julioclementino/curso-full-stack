@@ -24,3 +24,62 @@ export function listar(req, res) {
 
   res.json(catalogo.listar());
 }
+
+// rota de listar produtos disponíveis - http://localhost:3000/produtos/disponiveis
+export function disponiveis(req, res) {
+  res.json(catalogo.disponiveis());
+}
+
+// buscar produto pelo id
+export function buscarPorId(req, res) {
+  const produto = catalogo.buscarPorId(Number(req.params.id));
+
+  if (!produto) {
+    // 404 = NOT_FOUND (Não Encontrado)
+    return res.status(404).json({ erro: "Produto não encontrado!" });
+  }
+
+  res.json(produto);
+}
+
+// cadastrar produto
+export function cadastrar(req, res) {
+  const { nome, preco, categoria, estoque } = req.body;
+
+  try {
+    const produto = catalogo.adicionar(nome, preco, categoria, estoque);
+    res.status(201).json(produto);
+  } catch (erro) {
+    res.status(400).json({ erro: erro.message });
+  }
+}
+
+// funcao aplicar desconto em um produto
+export function aplicarDesconto(req, res) {
+  const produto = catalogo.buscarPorId(Number(req.params.id));
+  if (!produto) {
+    return res.status(404).json({ erro: "Produto não encontrado!" });
+  }
+
+  try {
+    produto.aplicarDesconto(req.body.percentual);
+    res.json(produto);
+  } catch (erro) {
+    res.status(400).json({ erro: erro.message });
+  }
+}
+
+// funcao de vender um produto
+export function venderProduto(req, res) {
+  const produto = catalogo.buscarPorId(Number(req.params.id));
+  if (!produto) {
+    return res.status(404).json({ erro: "Produto não encontrado!" });
+  }
+
+  try {
+    produto.vender(req.body.quantidade);
+    res.json(produto);
+  } catch (erro) {
+    res.status(400).json({ erro: erro.message });
+  }
+}
