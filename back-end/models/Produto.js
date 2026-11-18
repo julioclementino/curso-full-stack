@@ -26,4 +26,12 @@ export class Produto {
     
     this.preco = Number((this.preco * (1 - percentual / 100)).toFixed(2));
   }
+
+  repor(quantidade) {
+    if(typeof quantidade !== "number" || quantidade <= 0) {
+      throw new Error("A quantidade precisa ser um número maior que 0.")
+    }
+
+    this.estoque = this.estoque + quantidade;
+  }
 }
