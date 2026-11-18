@@ -83,3 +83,23 @@ export function venderProduto(req, res) {
     res.status(400).json({ erro: erro.message });
   }
 }
+
+// funcao de repor estoque
+export function repor(req, res) {
+  const produto = catalogo.buscarPorId(Number(req.params.id));
+  if (!produto) {
+    return res.status(404).json({ erro: "Produto não encontrado!"})
+  }
+
+  try {
+    produto.repor(req.body.quantidade);
+    req.json(produto);
+  } catch (erro) {
+    res.status(400).json({ erro: erro.message})
+  }
+}
+
+// funcao para listar categoria
+export function categorias(req, res) {
+  res.json(catalogo.categorias());
+}

@@ -32,4 +32,9 @@ export class Catalogo {
   disponiveis() {
     return this.produtos.filter((produto) => produto.estaDisponivel());
   }
+
+  categorias() {
+    const nomes = this.produtos.map((p) => p.categoria);
+    return [...new Set(nomes)];
+  }
 }

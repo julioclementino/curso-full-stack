@@ -23,13 +23,13 @@ export class Produto {
     if (percentual < 1 || percentual > 50) {
       throw new Error("A porcentagem de desconto deve estar entre 1% e 50%.");
     }
-    
+
     this.preco = Number((this.preco * (1 - percentual / 100)).toFixed(2));
   }
 
   repor(quantidade) {
-    if(typeof quantidade !== "number" || quantidade <= 0) {
-      throw new Error("A quantidade precisa ser um número maior que 0.")
+    if (typeof quantidade !== "number" || quantidade <= 0) {
+      throw new Error("A quantidade precisa ser um número maior que 0.");
     }
 
     this.estoque = this.estoque + quantidade;
