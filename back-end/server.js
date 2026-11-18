@@ -68,6 +68,33 @@ app.post("/produtos/:id/vender", (req, res) => {
   }
 });
 
+// Método POST para adicionar produtos
+app.post("/produtos", (req, res) => {
+  const { nome, preco, categoria, quantidade } = req.body;
+
+  if (!nome || preco == null || !categoria || quantidade == null) {
+    return res.status(400).json({
+      error: "Preencha todos os campos"
+    });
+  }
+
+  try {
+    const produto = catalogo.adicionar(
+      nome,
+      preco,
+      categoria,
+      quantidade
+    );
+
+    res.status(201).json({
+      mensagem: "Produto adicionado com sucesso!",
+      produto
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 app.listen(PORTA, () => {
   console.log(`Servidor está rodando em http://localhost:${PORTA}`);
 });
