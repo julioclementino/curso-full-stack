@@ -1,100 +1,17 @@
 import express from "express";
-import { Catalogo } from "./models/Catalogo.js";
+import cors from "cors";
+import produtoRoutes from "./routes/produtoRoutes.js";
 
 const app = express();
 const PORTA = 3000;
 
-app.use(express.json()); // permite que o express entenda requisições com body em JSON
+app.use(cors()); // libera o front para chamar a API
+app.use(express.json()); // permite ler o conteúdo do req.body
 
-const catalogo = new Catalogo();
-catalogo.adicionar("X-tudo", 39.9, "Hamburguer", 10);
-catalogo.adicionar("Coxinha", 19.9, "Salgados", 0);
+// direcionar todas as rotas de produto para /produtos
+app.use("/produtos", produtoRoutes);
 
-// métodos get
-app.get("/", (req, res) => {
-  res.send("Api cardápio funcionando!");
-});
-
-// listar os produtos do catálogo
-app.get("/produtos", (req, res) => {
-  res.json(catalogo.listar());
-});
-
-// listar os produtos disponíveis do catálogo
-app.get("/produtos/disponiveis", (req, res) => {
-  res.json(catalogo.disponiveis());
-});
-
-// buscar produto por id
-app.get("/produtos/:id", (req, res) => {
-  const produto = catalogo.buscarPorId(Number(req.params.id));
-
-  if (produto) {
-    res.json(produto);
-  } else {
-    res.status(404).json({ error: "Produto não encontrado" });
-  }
-});
-
-// Método POST para produtos com desconto
-app.post("/produtos/:id/desconto", (req, res) => {
-  const produto = catalogo.buscarPorId(Number(req.params.id));
-
-  if (!produto) {
-    return res.status(404).json({ error: "Produto não encontrado" });
-  }
-
-  try {
-    produto.aplicarDesconto(req.body.percentual);
-    res.json(produto);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Método POST para vender produtos
-app.post("/produtos/:id/vender", (req, res) => {
-  const produto = catalogo.buscarPorId(Number(req.params.id));
-
-  if (!produto) {
-    return res.status(404).json({ error: "Produto não encontrado" });
-  }
-
-  try {
-    produto.vender(req.body.quantidade);
-    res.json(produto);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Método POST para adicionar produtos
-app.post("/produtos", (req, res) => {
-  const { nome, preco, categoria, quantidade } = req.body;
-
-  if (!nome || preco == null || !categoria || quantidade == null) {
-    return res.status(400).json({
-      error: "Preencha todos os campos"
-    });
-  }
-
-  try {
-    const produto = catalogo.adicionar(
-      nome,
-      preco,
-      categoria,
-      quantidade
-    );
-
-    res.status(201).json({
-      mensagem: "Produto adicionado com sucesso!",
-      produto
-    });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
+// ligando nosso servidor
 app.listen(PORTA, () => {
-  console.log(`Servidor está rodando em http://localhost:${PORTA}`);
+  console.log(`Servidor rodando na URL: http://localhost:${PORTA}`);
 });

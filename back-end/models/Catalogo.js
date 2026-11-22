@@ -26,10 +26,19 @@ export class Catalogo {
   }
 
   buscarPorId(id) {
-    return this.produtos.find((produto) => produto.id === id);
+    return this.produtos.find((p) => p.id === id);
   }
 
   disponiveis() {
-    return this.produtos.filter((produto) => produto.estaDisponivel());
+    return this.produtos.filter((p) => p.estaDisponivel());
+  }
+
+  buscarPorCategoria(categoria) {
+    return this.produtos.filter((p) => p.categoria.toLowerCase() === categoria.toLowerCase());
+  }
+
+  categorias() {
+    const nomes = this.produtos.map((p) => p.categoria);
+    return [...new Set(nomes)]; // Set remove as categorias duplicadas
   }
 }
