@@ -1,11 +1,11 @@
-import { Catalogo } from "./models/Catalogo.js";
+import { Catalogo } from "../models/Catalogo.js";
 
-// Criar um novo catalogo
+// criar um novo catálogo
 const catalogo = new Catalogo();
-catalogo.adicionar("X-tudo", 39.9, "Hamburguer", 10);
+catalogo.adicionar("X-Tudo", 39.9, "Hamburguer", 10);
 catalogo.adicionar("Coxinha", 19.9, "Salgados", 0);
 
-// Função para listar todos os produtos ou por categoria
+// função de listar todos os produtos ou por categoria
 export function listar(req, res) {
   const { categoria } = req.query; // const categoria = req.query.categoria
 
@@ -25,12 +25,12 @@ export function listar(req, res) {
   res.json(catalogo.listar());
 }
 
-// rota de listar produtos disponíveis - http://localhost:3000/produtos/disponiveis
+// função para listar produtos disponíveis
 export function disponiveis(req, res) {
   res.json(catalogo.disponiveis());
 }
 
-// buscar produto pelo id
+// função para buscar produto por ID
 export function buscarPorId(req, res) {
   const produto = catalogo.buscarPorId(Number(req.params.id));
 
@@ -42,7 +42,7 @@ export function buscarPorId(req, res) {
   res.json(produto);
 }
 
-// cadastrar produto
+// função de cadastrar produto
 export function cadastrar(req, res) {
   const { nome, preco, categoria, estoque } = req.body;
 
@@ -54,7 +54,7 @@ export function cadastrar(req, res) {
   }
 }
 
-// funcao aplicar desconto em um produto
+// função de aplicar desconto
 export function aplicarDesconto(req, res) {
   const produto = catalogo.buscarPorId(Number(req.params.id));
   if (!produto) {
@@ -69,8 +69,8 @@ export function aplicarDesconto(req, res) {
   }
 }
 
-// funcao de vender um produto
-export function venderProduto(req, res) {
+// função de vender
+export function vender(req, res) {
   const produto = catalogo.buscarPorId(Number(req.params.id));
   if (!produto) {
     return res.status(404).json({ erro: "Produto não encontrado!" });
@@ -84,22 +84,22 @@ export function venderProduto(req, res) {
   }
 }
 
-// funcao de repor estoque
+// função de repor estoque
 export function repor(req, res) {
   const produto = catalogo.buscarPorId(Number(req.params.id));
   if (!produto) {
-    return res.status(404).json({ erro: "Produto não encontrado!"})
+    return res.status(404).json({ erro: "Produto não encontrado!" });
   }
 
   try {
     produto.repor(req.body.quantidade);
-    req.json(produto);
+    res.json(produto);
   } catch (erro) {
-    res.status(400).json({ erro: erro.message})
+    res.status(400).json({ erro: erro.message });
   }
 }
 
-// funcao para listar categoria
+// função para listar categorias
 export function categorias(req, res) {
   res.json(catalogo.categorias());
 }
