@@ -1,4 +1,7 @@
-export class Produto {
+import { DataTypes, Model, STRING } from "sequelize";
+import { sequelize } from "../config/database.js";
+
+export class Produto extends Model {
   constructor(id, nome, preco, categoria, estoque = 0) {
     if (!nome) {
       throw new Error("O nome é obrigatório!");
@@ -49,3 +52,38 @@ export class Produto {
     this.estoque = this.estoque + quantidade;
   }
 }
+
+Produto.init(
+  {
+    nome: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      validate: {
+        notNull: { msg: "O nome é obrigatório." },
+        notEmpty: { msg: "O nome é obrigatório." },
+      },
+    },
+    preco: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+      validate: {
+        notNull: { msg: "O preço é obrigatório." },
+        min: { args: [0.01], msg: "O preço precisa ser maior que 0." },
+      },
+    },
+    categoria: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    estoque: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+  },
+  {
+    sequelize,
+    tableName: "produtos",
+    timestamps: false,
+  },
+);

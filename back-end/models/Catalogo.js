@@ -1,6 +1,8 @@
 import { Produto } from "./Produto.js";
+import { DataTypes, Model } from "sequelize";
+import { sequelize } from "../config/database.js";
 
-export class Catalogo {
+export class Catalogo extends Model {
   constructor() {
     this.produtos = [];
     this.proximoId = 1;

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import produtoRoutes from "./routes/produtoRoutes.js";
+import { sequelize } from "./config/database.js";
 
 const app = express();
 const PORTA = 3000;
@@ -10,6 +11,14 @@ app.use(express.json()); // permite ler o conteúdo do req.body
 
 // direcionar todas as rotas de produto para /produtos
 app.use("/produtos", produtoRoutes);
+
+try {
+  await sequelize.authenticate()
+console.log("MySQL Conectado com sucesso!")
+} catch (error) {
+  console.log("Erro ao conectar ao MySQL: ", error.message);
+  
+}
 
 // ligando nosso servidor
 app.listen(PORTA, () => {
