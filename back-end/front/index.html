@@ -1,34 +1,39 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cardápio</title>
-    <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body>
-    <h1>Cardápio</h1>
 
-    <!-- FILTRO: GET /produtos?categoria= -->
-    <select id="filtro">
-        <option value="">Todas as categorias</option>
-        <option value="Hamburguer">Hamburguer</option>
-        <option value="Salgados">Salgados</option>
-    </select>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cardápio</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
 
-    <ul id="lista"></ul>
-    <p id="msg"></p>
+<body>
+  <h1>Cardápio</h1>
 
-    <!-- CADASTRO: POST /produtos -->
-     <h2>Novo Produto</h2>
-     <form id="form">
-        <input type="text" id="nome" placeholder="Digite o nome do produto...">
-        <input type="number" id="preco" placeholder="Digite o preço do produto...">
-        <input type="text" id="categoria" placeholder="Digite a categoria do produto...">
-        <input type="text" id="estoque" placeholder="Digite o estoque do produto...">
-        <button>Cadastrar Produto</button>
-     </form>
+  <!-- FILTRO: GET /produtos?categoria= -->
+  <select id="filtro">
+    <option value="">Todas as categorias</option>
+    <option value="Salgados">Salgados</option>
+    <option value="Bebidas">Bebidas</option>
+    <option value="Lanhces">Lanches</option>
+  </select>
 
-    <script src="js/script.js"></script>
-  </body>
+  <ul id="lista"></ul>
+  <p id="msg"></p>
+
+  <!-- CADASTRO: POST /produtos -->
+  <h2 id="tituloForm">Novo Produto</h2>
+  <form id="form">
+    <input type="text" id="nome" placeholder="Digite o nome do produto...">
+    <input type="number" id="preco" placeholder="Digite o preço do produto...">
+    <input type="text" id="categoria" placeholder="Digite a categoria do produto...">
+    <input type="text" id="estoque" placeholder="Digite o estoque do produto...">
+    <button id="botaoSalvar">Cadastrar Produto</button>
+    <button type="button" id="botaoCancelar" hidden>Cancelar</button>
+  </form>
+
+  <script src="js/script.js"></script>
+</body>
+
 </html>

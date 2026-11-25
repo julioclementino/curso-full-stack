@@ -11,5 +11,7 @@ router.post("/", produtoController.cadastrar);
 router.post("/:id/desconto", produtoController.aplicarDesconto);
 router.post("/:id/vender", produtoController.vender);
 router.post("/:id/repor", produtoController.repor);
+router.put("/:id", produtoController.atualizar);
+router.delete("/:id", produtoController.excluir);
 
 export default router;

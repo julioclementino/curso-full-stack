@@ -114,18 +114,19 @@ export function categorias(req, res) {
 
 export async function atualizar(req, res) {
   const produto = await Produto.findByPk(req.params.id);
+
   if (!produto) {
-    return res.status(404).json({erro: "Produto não encontrado."});
+    return res.status(404).json({ erro: "Produto não encontrado." });
   }
 
   const { nome, preco, categoria, estoque } = req.body;
 
   try {
-    await Produto.update({ nome, preco, categoria, estoque });
+    await produto.update({ nome, preco, categoria, estoque });
     res.json(produto);
-  } catch {erro} {
-    const mensagem = erro.erros ? erro.erros[0].message : erro.message;
-    res.status(400).json({ erro: mensagem});
+  } catch (erro) {
+    const mensagem = erro.errors ? erro.errors[0].message : erro.message;
+    res.status(400).json({ erro: mensagem });
   }
 }
 
