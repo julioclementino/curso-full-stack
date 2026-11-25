@@ -83,7 +83,7 @@ function cancelarEdicao() {
   document.querySelector("#botaoCancelar").hidden = true;
 }
 
-document.querySelector("botaoCancelar").addEventListener("click", cancelarEdicao);
+document.querySelector("#botaoCancelar").addEventListener("click", cancelarEdicao);
 
 // quando trocar o filtro do select, fazer a busca novamente
 document.querySelector("#filtro").addEventListener("change", carregar);
