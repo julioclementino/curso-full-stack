@@ -2,7 +2,7 @@ import { Produto } from "./Produto.js";
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database.js";
 
-export class Catalogo extends Model {
+export class Catalogo {
   constructor() {
     this.produtos = [];
     this.proximoId = 1;

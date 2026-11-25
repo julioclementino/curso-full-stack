@@ -1,4 +1,5 @@
 import { Catalogo } from "../models/Catalogo.js";
+import { Produto } from "../models/Produto.js";
 
 // criar um novo catálogo
 const catalogo = new Catalogo();
@@ -6,12 +7,12 @@ catalogo.adicionar("X-Tudo", 39.9, "Hamburguer", 10);
 catalogo.adicionar("Coxinha", 19.9, "Salgados", 0);
 
 // função de listar todos os produtos ou por categoria
-export function listar(req, res) {
+export async function listar(req, res) {
   const { categoria } = req.query; // const categoria = req.query.categoria
 
   // se tiver a query ?categoria
   if (categoria) {
-    const produtos = catalogo.buscarPorCategoria(categoria);
+    const produtos = await Produto.findAll({ where: { categoria } });
 
     if (!produtos.length) {
       return res
@@ -19,20 +20,22 @@ export function listar(req, res) {
         .json({ erro: `Nenhum produto da categoria ${categoria} encontrado!` });
     }
 
-    return res.json(produtos); // ✅ return aqui
+    return res.json(produtos); //  return aqui
   }
 
-  res.json(catalogo.listar());
+  const produtos = await Produto.findAll();
+  res.json(produtos);
 }
 
 // função para listar produtos disponíveis
-export function disponiveis(req, res) {
-  res.json(catalogo.disponiveis());
+export async function disponiveis(req, res) {
+  const produtos = await Produto.findAll();
+  res.json(produtos.filter((p) => p.estaDisponivel()));
 }
 
 // função para buscar produto por ID
-export function buscarPorId(req, res) {
-  const produto = catalogo.buscarPorId(Number(req.params.id));
+export async function buscarPorId(req, res) {
+  const produto = await Produto.findByPk(req.params.id);
 
   if (!produto) {
     // 404 = NOT_FOUND (Não Encontrado)
@@ -43,26 +46,28 @@ export function buscarPorId(req, res) {
 }
 
 // função de cadastrar produto
-export function cadastrar(req, res) {
+export async function cadastrar(req, res) {
   const { nome, preco, categoria, estoque } = req.body;
 
   try {
-    const produto = catalogo.adicionar(nome, preco, categoria, estoque);
+    const produto = await Produto.create({ nome, preco, categoria, estoque });
     res.status(201).json(produto);
   } catch (erro) {
-    res.status(400).json({ erro: erro.message });
+    const mensagem = erro.erros ? erro.erros[0].message : erro.message;
+    res.status(400).json({ erro: mensagem });
   }
 }
 
 // função de aplicar desconto
-export function aplicarDesconto(req, res) {
-  const produto = catalogo.buscarPorId(Number(req.params.id));
+export async function aplicarDesconto(req, res) {
+  const produto = await Produto.findByPk(req.params.id);
   if (!produto) {
     return res.status(404).json({ erro: "Produto não encontrado!" });
   }
 
   try {
     produto.aplicarDesconto(req.body.percentual);
+    await produto.save();
     res.json(produto);
   } catch (erro) {
     res.status(400).json({ erro: erro.message });
@@ -70,14 +75,15 @@ export function aplicarDesconto(req, res) {
 }
 
 // função de vender
-export function vender(req, res) {
-  const produto = catalogo.buscarPorId(Number(req.params.id));
+export async function vender(req, res) {
+  const produto = await Produto.findByPk(req.params.id);
   if (!produto) {
     return res.status(404).json({ erro: "Produto não encontrado!" });
   }
 
   try {
     produto.vender(req.body.quantidade);
+    await produto.save();
     res.json(produto);
   } catch (erro) {
     res.status(400).json({ erro: erro.message });
@@ -85,14 +91,15 @@ export function vender(req, res) {
 }
 
 // função de repor estoque
-export function repor(req, res) {
-  const produto = catalogo.buscarPorId(Number(req.params.id));
+export async function repor(req, res) {
+  const produto = await Produto.findByPk(req.params.id);
   if (!produto) {
     return res.status(404).json({ erro: "Produto não encontrado!" });
   }
 
   try {
     produto.repor(req.body.quantidade);
+    await produto.save();
     res.json(produto);
   } catch (erro) {
     res.status(400).json({ erro: erro.message });
