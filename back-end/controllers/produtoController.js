@@ -110,3 +110,31 @@ export async function repor(req, res) {
 export function categorias(req, res) {
   res.json(catalogo.categorias());
 }
+
+
+export async function atualizar(req, res) {
+  const produto = await Produto.findByPk(req.params.id);
+  if (!produto) {
+    return res.status(404).json({erro: "Produto não encontrado."});
+  }
+
+  const { nome, preco, categoria, estoque } = req.body;
+
+  try {
+    await Produto.update({ nome, preco, categoria, estoque });
+    res.json(produto);
+  } catch {erro} {
+    const mensagem = erro.erros ? erro.erros[0].message : erro.message;
+    res.status(400).json({ erro: mensagem});
+  }
+}
+
+export async function excluir(req, res) {
+  const produto = await Produto.findByPk(req.params.id);
+  if (!produto) {
+    return res.status(404).json({erro: "Produto não encontrado."});
+  }
+
+  await produto.destroy();
+  res.status(204).send();
+}

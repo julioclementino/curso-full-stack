@@ -2,26 +2,6 @@ import { DataTypes, Model, STRING } from "sequelize";
 import { sequelize } from "../config/database.js";
 
 export class Produto extends Model {
-  constructor(id, nome, preco, categoria, estoque = 0) {
-    if (!nome) {
-      throw new Error("O nome é obrigatório!");
-    }
-
-    if (typeof preco !== "number" || preco <= 0) {
-      throw new Error("O preço precisa ser um número e maior que 0!");
-    }
-
-    if (!categoria) {
-      throw new Error("A categoria é obrigatória!");
-    }
-
-    this.id = id;
-    this.nome = nome;
-    this.preco = preco;
-    this.categoria = categoria;
-    this.estoque = estoque;
-  }
-
   vender(quantidade) {
     if (quantidade > this.estoque) {
       throw new Error(
