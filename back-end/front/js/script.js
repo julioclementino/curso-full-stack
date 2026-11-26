@@ -102,6 +102,7 @@ form.addEventListener("submit", async (e) => {
   };
 
   const url = editandoId ? `${API}/produtos/${editandoId}` : `${API}/produtos`;
+
   const metodo = editandoId ? "PUT" : "POST";
 
   const resposta = await fetch(url, {
@@ -109,6 +110,7 @@ form.addEventListener("submit", async (e) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dadosForms),
   });
+
   const dados = await resposta.json();
 
   if (!resposta.ok) {
@@ -116,7 +118,9 @@ form.addEventListener("submit", async (e) => {
   }
 
   const acao = editandoId ? "atualizado" : "cadastrado";
-  mostrarMensagem(`${dados.nomes} ${acao}!`, "ok");
+
+  mostrarMensagem(`${dados.nome} ${acao}!`, "ok");
+
   cancelarEdicao();
   carregar();
 });
