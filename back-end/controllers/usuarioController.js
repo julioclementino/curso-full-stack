@@ -16,11 +16,8 @@ export async function cadastrar(req, res) {
     res
       .status(201)
       .json({ id: usuario.id, nome: usuario.nome, email: usuario.email });
-  } catch {
-    erro;
-  }
-  {
-    const mensagem = erro.erros ? erro.erros[0].message : erro.message;
+  } catch (erro) {
+    const mensagem = erro.errors ? erro.errors[0].message : erro.message;
     res.status(400).json({ erro: mensagem });
   }
 }

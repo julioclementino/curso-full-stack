@@ -1,7 +1,7 @@
 import { Router } from "express";
 import * as usuarioController from "../controllers/usuarioController.js";
 
-const router = Rouuter();
+const router = Router();
 
 router.post("/usuarios", usuarioController.cadastrar);
 

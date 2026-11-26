@@ -1,10 +1,4 @@
-import { Catalogo } from "../models/Catalogo.js";
 import { Produto } from "../models/Produto.js";
-
-// criar um novo catálogo
-const catalogo = new Catalogo();
-catalogo.adicionar("X-Tudo", 39.9, "Hamburguer", 10);
-catalogo.adicionar("Coxinha", 19.9, "Salgados", 0);
 
 // função de listar todos os produtos ou por categoria
 export async function listar(req, res) {
@@ -53,7 +47,7 @@ export async function cadastrar(req, res) {
     const produto = await Produto.create({ nome, preco, categoria, estoque });
     res.status(201).json(produto);
   } catch (erro) {
-    const mensagem = erro.erros ? erro.erros[0].message : erro.message;
+    const mensagem = erro.errors ? erro.errors[0].message : erro.message;
     res.status(400).json({ erro: mensagem });
   }
 }
