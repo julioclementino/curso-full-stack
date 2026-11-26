@@ -1,6 +1,6 @@
 const API = "http://localhost:3000";
 const msg = document.querySelector("#msg");
-const form = document.querySelector("#form")
+const form = document.querySelector("#form");
 
 let editandoId = null;
 
@@ -36,7 +36,7 @@ async function carregar() {
     botaoEditar.textContent = "Editar";
     botaoEditar.addEventListener("click", () => comecarEdicao(p));
 
-    const botaoExcluir = document.createElement("button")
+    const botaoExcluir = document.createElement("button");
     botaoExcluir.textContent = "Excluir";
     botaoExcluir.addEventListener("click", () => excluir(p.id, p.nome));
 
@@ -70,9 +70,10 @@ function comecarEdicao(produto) {
   document.querySelector("#categoria").value = produto.categoria;
   document.querySelector("#estoque").value = produto.estoque;
 
-  document.querySelector("#tituloForm").textContent = `Editando: ${produto.nome}`;
+  document.querySelector("#tituloForm").textContent =
+    `Editando: ${produto.nome}`;
   document.querySelector("#botaoSalvar").textContent = "Salvar alteração";
-  document.querySelector("#botaoCancelar").hidden =  false;
+  document.querySelector("#botaoCancelar").hidden = false;
 }
 
 function cancelarEdicao() {
@@ -83,9 +84,56 @@ function cancelarEdicao() {
   document.querySelector("#botaoCancelar").hidden = true;
 }
 
-document.querySelector("#botaoCancelar").addEventListener("click", cancelarEdicao);
+document
+  .querySelector("#botaoCancelar")
+  .addEventListener("click", cancelarEdicao);
 
 // quando trocar o filtro do select, fazer a busca novamente
 document.querySelector("#filtro").addEventListener("change", carregar);
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const dadosForms = {
+    nome: document.querySelector("#nome").value,
+    preco: Number(document.querySelector("#preco").value),
+    categoria: document.querySelector("#categoria").value,
+    estoque: Number(document.querySelector("#estoque").value),
+  };
+
+  const url = editandoId ? `${API}/produtos/${editandoId}` : `${API}/produtos`;
+  const metodo = editandoId ? "PUT" : "POST";
+
+  const resposta = await fetch(url, {
+    method: metodo,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dadosForms),
+  });
+  const dados = await resposta.json();
+
+  if (!resposta.ok) {
+    return mostrarMensagem(dados.erro, "erro");
+  }
+
+  const acao = editandoId ? "atualizado" : "cadastrado";
+  mostrarMensagem(`${dados.nomes} ${acao}!`, "ok");
+  cancelarEdicao();
+  carregar();
+});
+
+async function excluir(id, nome) {
+  if (!confirm(`Excluir ${nome}?`)) return;
+
+  const resposta = await fetch(`${API}/produtos/${id}`, { method: "DELETE" });
+
+  if (!resposta.ok) {
+    const dados = await resposta.json();
+    return mostrarMensagem(dados.erro, "erro");
+  }
+
+  mostrarMensagem(`${nome} excluído!`, "ok");
+  if (editandoId === id) cancelarEdicao();
+  carregar();
+}
 
 carregar(); // carregar ao abrir a página

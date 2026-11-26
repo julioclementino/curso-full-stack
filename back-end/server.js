@@ -17,7 +17,7 @@ try {
 console.log("MySQL Conectado com sucesso!")
 } catch (error) {
   console.log("Erro ao conectar ao MySQL: ", error.message);
-  
+
 }
 
 // ligando nosso servidor
