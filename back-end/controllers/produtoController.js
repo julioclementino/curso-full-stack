@@ -111,7 +111,6 @@ export function categorias(req, res) {
   res.json(catalogo.categorias());
 }
 
-
 export async function atualizar(req, res) {
   const produto = await Produto.findByPk(req.params.id);
 
@@ -133,7 +132,7 @@ export async function atualizar(req, res) {
 export async function excluir(req, res) {
   const produto = await Produto.findByPk(req.params.id);
   if (!produto) {
-    return res.status(404).json({erro: "Produto não encontrado."});
+    return res.status(404).json({ erro: "Produto não encontrado." });
   }
 
   await produto.destroy();
