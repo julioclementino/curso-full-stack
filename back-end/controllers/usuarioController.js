@@ -25,7 +25,7 @@ export async function cadastrar(req, res) {
 export async function login(req, res) {
   const { email, senha } = req.body;
 
-  const usuario = await usuario.findOne({ where: email });
+  const usuario = await Usuario.findOne({ where: {email} });
   const senhaCerta =
     usuario && (await bcrypt.compare(senha || "", usuario.senha));
 

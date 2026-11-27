@@ -16,8 +16,8 @@ app.use(
     secret: "SecretKey",
     resave: false,
     saveUninitialized: false,
-    cookie: { httpOnly: true}, maxAge: 1000 * 60 * 60
-  })
+    cookie: { httpOnly: true, maxAge: 1000 * 60 * 60 },
+  }),
 )
 
 app.use(usuarioRoutes);
