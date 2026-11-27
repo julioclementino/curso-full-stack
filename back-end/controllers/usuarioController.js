@@ -21,3 +21,39 @@ export async function cadastrar(req, res) {
     res.status(400).json({ erro: mensagem });
   }
 }
+
+export async function login(req, res) {
+  const { email, senha } = req.body;
+
+  const usuario = await usuario.findOne({ where: email });
+  const senhaCerta =
+    usuario && (await bcrypt.compare(senha || "", usuario.senha));
+
+  if (!senhaCerta) {
+    return res.status(401).json({ erro: "Email ou senha inválidos!" });
+  }
+
+  req.session.usuario = {
+    id: usuario.id,
+    nome: usuario.nome,
+    email: usuario.email,
+  };
+  res.json({
+    mensagem: `Bem-vindo(a), ${usuario.nome}`,
+    usuario: req.session.usuario,
+  });
+}
+
+export function me(req, res) {
+  if (!req.session.usuario) {
+    return res.status(401).json({ erro: "Ninguém logado!" });
+  }
+
+  res.json(req.session.usuario);
+}
+
+export function logout(req, res) {
+  req.session.destroy(() => {
+    res.json({ mensagem: "Você foi deslogado" });
+  });
+}
